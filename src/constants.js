@@ -2,7 +2,9 @@ export const COLOR = {
   bg: '#E0D3AF',
   stroke: '#000',
   shade: '#333',
-  red: '#F00'
+  red: '#F00',
+  green: '#0F0',
+  blue: '#00F'
 };
 
 export const ATTR = {

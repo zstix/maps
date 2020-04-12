@@ -14,7 +14,7 @@ const tree = ({
 
   const points = range(0, numPoints).map((i) => {
     const rad = degToRad(i * rand(angle - 3, angle + 3));
-    return pointFromAngle(pos, rad, rand(radius, radius));
+    return pointFromAngle(pos, rad, radius);
   });
 
   // foliage

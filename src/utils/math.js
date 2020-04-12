@@ -25,3 +25,21 @@ export const pointFromAngle = (p, deg, dist) => ({
   x: p.x + Math.cos(deg) * dist,
   y: p.y + Math.sin(deg) * dist
 });
+
+// NOTE: not functional due to algorithm
+export const isPointInPoly = (point, points) => {
+  const { x, y } = point;
+  let result = false;
+
+  for (let i = 0, j = points.length - 1; i < points.length; j = i++) {
+    const xi = points[i].x;
+    const yi = points[i].y;
+    const xj = points[j].x;
+    const yj = points[j].y;
+    const intersect = ((yi > y) != (yj > y)) &&
+      (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+    if (intersect) result = !result;
+  }
+
+  return result;
+};
