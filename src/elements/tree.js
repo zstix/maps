@@ -1,4 +1,4 @@
-import { COLOR_BG } from '../constants';
+import { COLOR, ATTR } from '../constants';
 import {
   point,
   drawLine,
@@ -23,12 +23,23 @@ const tree = ({
     return pointFromAngle(pos, rad, rand(radius, radius));
   });
 
-  drawShape({ paper, points, attr: { 'stroke-width': 2, fill: COLOR_BG } });
+  // foliage
+  drawShape({ paper, points, attr: ATTR.shape });
 
+  // trunk
   const lower = point(pos.x, pos.y + radius);
   const base = point(pos.x, pos.y + radius + (radius / 1.5));
-  drawLine({ paper, a: lower, b: base, attr: { 'stroke-width': 2 } });
-  drawLine({ paper, a: base, b: { ...base, x: pos.x + radius }, attr: { stroke: '#AAA' } });
+  drawLine({ paper, a: lower, b: base, attr: ATTR.stroke });
+
+  // shading
+  const sh1 = point(pos.x + (radius * 0.4), pos.y - (radius * 0.4))
+  const sh2 = point(pos.x + (radius * 0.4), pos.y + (radius * 0.4))
+  drawLine({ paper, a: sh1, b: sh2, attr: ATTR.shade });
+  drawLine({ paper, a: base, b: { ...base, x: pos.x + radius }, attr: ATTR.shade });
+  const lowest = base.y + (radius * 0.3);
+  const sh3 = point(pos.x - (radius * 0.5), lowest);
+  const sh4 = point(pos.x + (radius * 1.2), lowest);
+  drawLine({ paper, a: sh3, b: sh4, attr: ATTR.shade });
 };
 
 export default tree;
