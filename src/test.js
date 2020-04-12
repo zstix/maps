@@ -1,6 +1,6 @@
 import Raphael from 'raphael';
 
-import { range } from './utils';
+import { range, rand } from './utils';
 import mountain from './elements/mountain';
 
 const paper = Raphael(20, 20, 400, 400);
