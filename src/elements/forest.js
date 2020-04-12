@@ -1,4 +1,6 @@
-import { drawCircle, range, rand, point } from '../utils';
+import { range, rand } from '../utils/helpers';
+import { point } from '../utils/math';
+import { drawCircle } from '../utils/art';
 import tree from './tree';
 
 const pointCircle = ({ paper, pos, size }) => {

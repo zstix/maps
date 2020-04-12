@@ -1,13 +1,7 @@
-import { COLOR, ATTR } from '../constants';
-import {
-  point,
-  drawLine,
-  pointFromAngle,
-  degToRad,
-  range,
-  rand,
-  drawShape
-} from '../utils';
+import { ATTR } from '../constants';
+import { rand, range } from '../utils/helpers';
+import { point, pointFromAngle, degToRad } from '../utils/math';
+import { drawLine, drawShape } from '../utils/art';
 
 const tree = ({
   paper,

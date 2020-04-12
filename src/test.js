@@ -1,6 +1,6 @@
 import Raphael from 'raphael';
 
-import { range, point } from './utils';
+import { range } from './utils/helpers';
 // import mountain from './elements/mountain';
 import tree from './elements/tree';
 // import forest from './elements/forest';

@@ -1,11 +1,6 @@
-import {
-  point,
-  drawLine,
-  drawMessyLine,
-  rand,
-  drawCurve,
-  pointFromAngle,
-} from '../utils';
+import { rand, } from '../utils/helpers';
+import { point, pointFromAngle } from '../utils/math';
+import { drawLine, drawCurve, drawMessyLine } from '../utils/art';
 
 const mountain = ({
   paper,
