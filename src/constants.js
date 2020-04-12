@@ -1,0 +1,1 @@
+export const COLOR_BG = '#E0D3AF';

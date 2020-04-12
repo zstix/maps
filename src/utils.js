@@ -14,7 +14,8 @@ export const range = (a, b = false) => b
 
 export const point = (x, y) => ({ x, y });
 
-const radToDeg = rad => (rad * 180) / Math.PI;
+export const radToDeg = rad => (rad * 180) / Math.PI;
+export const degToRad = deg => (deg * Math.PI) / 180
 
 const calcAngle = (a, b) => Math.atan2(b.y - a.y, b.x - a.x);
 
@@ -77,3 +78,17 @@ export const drawCurve = ({ paper, a, b, c1, attr }) => {
   const commands = [move(a), curve(c1, b)];
   draw({ paper, commands, attr });
 }
+
+export const drawCircle = ({ paper, pos, size = 1, attr }) => {
+  const circle = paper.circle(pos.x, pos.y, size);
+  circle.attr({ 'stroke-width': 1, ...attr });
+}
+
+export const drawShape = ({ paper, points, attr }) => {
+  const commands = [
+    move(points[0]),
+    ...points.map(line),
+    line(points[0])
+  ];
+  draw({ paper, commands, attr });
+};
