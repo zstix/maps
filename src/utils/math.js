@@ -3,15 +3,15 @@ export const point = (x, y) => ({ x, y });
 export const radToDeg = rad => (rad * 180) / Math.PI;
 export const degToRad = deg => (deg * Math.PI) / 180
 
-const calcAngle = (a, b) => Math.atan2(b.y - a.y, b.x - a.x);
+export const calcAngle = (a, b) => Math.atan2(b.y - a.y, b.x - a.x);
 
-const calcDist = (a , b) => {
+export const calcDist = (a , b) => {
   const x = a.x - b.x;
   const y = a.y - b.y;
   return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))
 };
 
-const getPoint = (point, rad, dist) => ({
+export const getPoint = (point, rad, dist) => ({
   x: Math.cos(rad) * dist + point.x,
   y: Math.sin(rad) * dist + point.y
 });

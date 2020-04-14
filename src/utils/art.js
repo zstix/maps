@@ -1,8 +1,10 @@
-const move = p => `M${p.x},${p.y}`;
-const line = p => `L${p.x},${p.y}`;
-const curve = (c, p) => `Q${c.x},${c.y} ${p.x},${p.y}`;
+import { calcDist, calcAngle, getPoint } from './math';
 
-const draw = ({ paper, commands, attr }) => {
+export const move = p => `M${p.x},${p.y}`;
+export const line = p => `L${p.x},${p.y}`;
+export const curve = (c, p) => `Q${c.x},${c.y} ${p.x},${p.y}`;
+
+export const draw = ({ paper, commands, attr }) => {
   const path = paper.path(commands.join());
   path.attr({ 'stroke-width': 1, ...attr });
 };

@@ -1,27 +1,50 @@
-import { rand, } from '../utils/helpers';
-import { point, pointFromAngle } from '../utils/math';
-import { drawLine, drawCurve, drawMessyLine } from '../utils/art';
+import { ATTR, COLOR } from '../constants';
+import { rand } from '../utils/helpers';
+import { point, degToRad, pointFromAngle } from '../utils/math';
+import { drawLine, drawCircle, move, line, curve, draw } from '../utils/art';
 
 const mountain = ({
   paper,
   pos,
-  width = rand(48, 52),
-  height = rand(22, 36)
+  height = rand(25, 36)
 }) => {
-  const halfWidth = width / 2;
-  const left = point(pos.x - halfWidth, pos.y);
-  const right = point(pos.x + halfWidth, pos.y);
-  const top = point (rand(pos.x - 3, pos.x + 3), pos.y - height);
+  const pTop = point(pos.x, pos.y - height);
 
-  const pLeft = pointFromAngle(pos, (Math.PI * -0.57), height / 1.3);
-  const pRight = pointFromAngle(pos, (Math.PI * -0.43), height / 1.3);
+  // get bottom left and right points
+  const aLeft = rand(25, 40);
+  const radLeft = degToRad(aLeft);
+  const aRight = rand(25,40);
+  const radRight = degToRad(aRight);
+  const left = pos.x - (height * Math.tan(radLeft));
+  const right = pos.x + (height * Math.tan(radRight));
+  const pLeft = point(left, pos.y);
+  const pRight = point(right, pos.y);
 
-  drawMessyLine({ paper, a: pos, b: { ...top, y: pos.y - (height * 0.90)}, attr: { 'stroke-width': 0.5 } });
+  // curve up top
+  const cLeftDist = rand(height * 0.2, height * 0.3);
+  const cRightDist = rand(height * 0.2, height * 0.3);
+  const cpLeft = point(
+    pos.x - (cLeftDist * Math.sin(radLeft)),
+    pTop.y + (cLeftDist * Math.cos(radLeft))
+  );
+  const cpRight = point(
+    pos.x + (cRightDist * Math.sin(radRight)),
+    pTop.y + (cRightDist * Math.cos(radRight))
+  );
+  const cpRand = 2.5;
+  const cpControl = point(
+    rand(pTop.x - cpRand, pTop.x + cpRand),
+    rand(pTop.y - cpRand, pTop.y + cpRand)
+  );
 
-  drawMessyLine({ paper, a: left, b: pLeft, attr: { 'stroke-width': 2 } });
-  drawMessyLine({ paper, a: right, b: pRight, attr: { 'stroke-width': 2 } });
-
-  drawCurve({ paper, a: pLeft, b: pRight, c1: top, attr: { 'stroke-width': 2 } });
+  // draw and fill basic shape
+  const commands = [
+    move(pLeft),
+    line(cpLeft),
+    curve(cpControl, cpRight),
+    line(pRight)
+  ];
+  draw({ paper, commands, attr: ATTR.shape });
 };
 
 export default mountain;
