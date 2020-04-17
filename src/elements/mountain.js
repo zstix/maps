@@ -1,22 +1,18 @@
-import { ATTR, COLOR } from '../constants';
-import { rand } from '../utils/helpers';
-import { point, degToRad, pointFromAngle } from '../utils/math';
-import { drawLine, drawCircle, move, line, curve, draw } from '../utils/art';
+import { ATTR, COLOR } from "../constants";
+import { rand } from "../utils/helpers";
+import { point, degToRad, pointFromAngle } from "../utils/math";
+import { drawLine, drawCircle, move, line, curve, draw } from "../utils/art";
 
-const mountain = ({
-  paper,
-  pos,
-  height = rand(25, 36)
-}) => {
+const mountain = ({ paper, pos, height = rand(25, 36) }) => {
   const pTop = point(pos.x, pos.y - height);
 
   // get bottom left and right points
   const aLeft = rand(25, 40);
   const radLeft = degToRad(aLeft);
-  const aRight = rand(25,40);
+  const aRight = rand(25, 40);
   const radRight = degToRad(aRight);
-  const left = pos.x - (height * Math.tan(radLeft));
-  const right = pos.x + (height * Math.tan(radRight));
+  const left = pos.x - height * Math.tan(radLeft);
+  const right = pos.x + height * Math.tan(radRight);
   const pLeft = point(left, pos.y);
   const pRight = point(right, pos.y);
 
@@ -24,12 +20,12 @@ const mountain = ({
   const cLeftDist = rand(height * 0.2, height * 0.3);
   const cRightDist = rand(height * 0.2, height * 0.3);
   const cpLeft = point(
-    pos.x - (cLeftDist * Math.sin(radLeft)),
-    pTop.y + (cLeftDist * Math.cos(radLeft))
+    pos.x - cLeftDist * Math.sin(radLeft),
+    pTop.y + cLeftDist * Math.cos(radLeft)
   );
   const cpRight = point(
-    pos.x + (cRightDist * Math.sin(radRight)),
-    pTop.y + (cRightDist * Math.cos(radRight))
+    pos.x + cRightDist * Math.sin(radRight),
+    pTop.y + cRightDist * Math.cos(radRight)
   );
   const cpRand = 2.5;
   const cpControl = point(
@@ -42,7 +38,7 @@ const mountain = ({
     move(pLeft),
     line(cpLeft),
     curve(cpControl, cpRight),
-    line(pRight)
+    line(pRight),
   ];
   draw({ paper, commands, attr: ATTR.shape });
 };
