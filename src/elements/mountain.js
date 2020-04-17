@@ -1,7 +1,7 @@
-import { ATTR, COLOR } from "../constants";
+import { ATTR } from "../constants";
 import { rand } from "../utils/helpers";
-import { point, degToRad, pointFromAngle } from "../utils/math";
-import { drawLine, drawCircle, move, line, curve, draw } from "../utils/art";
+import { point, degToRad } from "../utils/math";
+import { getMessyPoints, move, lines, curve, draw } from "../utils/art";
 
 const mountain = ({ paper, pos, height = rand(25, 36) }) => {
   const pTop = point(pos.x, pos.y - height);
@@ -33,12 +33,16 @@ const mountain = ({ paper, pos, height = rand(25, 36) }) => {
     rand(pTop.y - cpRand, pTop.y + cpRand)
   );
 
+  // messy sides
+  const messyLeft = lines(getMessyPoints(pLeft, cpLeft));
+  const messyRight = lines(getMessyPoints(cpRight, pRight));
+
   // draw and fill basic shape
   const commands = [
     move(pLeft),
-    line(cpLeft),
+    ...messyLeft,
     curve(cpControl, cpRight),
-    line(pRight),
+    ...messyRight,
   ];
   draw({ paper, commands, attr: ATTR.shape });
 };
